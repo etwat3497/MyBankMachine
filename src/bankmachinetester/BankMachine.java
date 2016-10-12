@@ -16,7 +16,13 @@ public class BankMachine {
     
     
     public BankMachine(){
-        
+        bankName = "Unknown bank";
+        initialBalance = 0;
+    }
+    
+    public BankMachine(String bank, int initial){
+        bankName = bank;
+        initialBalance = initial;
     }
     
 }

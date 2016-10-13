@@ -6,7 +6,7 @@
 
 package bankmachinetester;
 
-import static java.lang.Math.pow;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -15,6 +15,7 @@ import static java.lang.Math.pow;
 public class BankMachine {
     private String bankName;
     private double balance;
+    DecimalFormat x = new DecimalFormat("##.##");
     
     
     public BankMachine(){
@@ -28,24 +29,47 @@ public class BankMachine {
     }
     
     public double deposit(double depositAmount){
-        balance += depositAmount;
+        if(depositAmount<0){
+            System.out.println("\nInsufficient funds to deposit");
+        }
+        else{
+            balance += depositAmount;
+            System.out.println("\nDeposit recorded successfully");
+        }
         return balance;
     }
     
     public double withdrawl(double withdrawlAmount){
-        balance -= withdrawlAmount;
+        if(withdrawlAmount<0){
+            System.out.println("\nPlease choose a positive value to withdraw");
+        }
+        else if(withdrawlAmount>balance){
+            System.out.println("\nInsufficient funds to withdraw");
+        }
+        else{
+            balance -= withdrawlAmount;
+            System.out.println("\nWithdrawl recorded successfully");
+        }
         return balance;
     }
     
     public void displayBalance(){
-        System.out.println("The current balance is $"+balance+".");
+        System.out.println("The current balance is $"+x.format(balance)+".");
     }
     
     public void interest(double annualInterest, int days){
-        double dailyInterestRate = annualInterest/365;
-        double interest = pow(balance*(1+dailyInterestRate), days);
-        System.out.println("In "+days+" days, you recieved $"+interest+" in interest");
-        balance += interest;
+        if(days<0 || annualInterest<0){
+            System.out.println("Please input a positive number of days and a positive interest rate");
+        }
+        else{
+            double dailyInterestRate = annualInterest/365;
+            double newBalance = balance*(Math.pow(1+dailyInterestRate, days));
+            double interest = newBalance - balance;
+            System.out.println("You gained $"+x.format(interest)+" in interest.");
+            balance += interest;
+        }
+        
+        
     }
     
 }

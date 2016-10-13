@@ -1,11 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Created by Ethan Watt
+ * On October 13, 2016
+ * Created to make a fully functioning ATM with classes
  */
 
 package bankmachinetester;
 
+//Add imports
 import java.util.Scanner;
 
 /**
@@ -15,19 +16,25 @@ import java.util.Scanner;
 public class BankMachineTester {
 
     /**
-     * @param args the command line arguments
+     * pre: String array
+     * post: void
+     * Main method to have the ATM communicate with the user and run methods and constructors from the ATM class
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        boolean done = false;
+        
         
         Scanner sc = new Scanner(System.in);
         
         System.out.println("What is the name of your bank?");
-        String bankName = sc.nextLine();
+        String bankName = "";
+        //Get bank name from user
+        bankName = sc.nextLine();
+
         double initialBalance = 0;
         Boolean run = false;
         
+        //Run in while loop to catch bad user input when getting initial balance
         while(!run){
             try{
                 System.out.println("What is your initial balance?");
@@ -37,8 +44,9 @@ public class BankMachineTester {
                     System.out.println("\nPlease input a positive value.");
                 }
                 else{
-                System.out.println("Initial balance recorded successfully.");
-                run = true;
+                    //End while loop
+                    System.out.println("Initial balance recorded successfully.");
+                    run = true;
                 }
             }
             catch(NumberFormatException e){
@@ -46,10 +54,12 @@ public class BankMachineTester {
             }
         }
         
+        //Run the constructor in the bank machine class
         BankMachine user1 = new BankMachine(bankName, initialBalance);
         
         String userChoice = "";
-
+        boolean done = false;
+        //Run in a while loop to catch bad user input and continually run this until done is typed
         while(!done){
             System.out.println("Please input 'Deposit' to put money into your account, 'Withdrawl' to withdraw money from the account, "
             + "'Display' to display the current balance, or 'Interest' to calculate interest over a certain interval of time, and 'Done' to close the program");
@@ -60,6 +70,7 @@ public class BankMachineTester {
                 System.out.println("Please input the deposit amount");
                 
                 try{
+                    //If good user input run deposit method in bank machine class
                     double depositValue = Double.parseDouble(sc.nextLine());
                     user1.deposit(depositValue);
                 }
@@ -73,6 +84,7 @@ public class BankMachineTester {
                 System.out.println("Please input the withdrawl amount");
 
                 try{
+                    //If good user input run withdraw method in bank machine class
                     double withdrawlValue = Double.parseDouble(sc.nextLine()); 
                     user1.withdrawl(withdrawlValue);
                 }
@@ -92,6 +104,7 @@ public class BankMachineTester {
                 System.out.println("Please input the annual interest amount in decimal format; i.e. 5% would be represented as 0.05");
                 
                 try{
+                    //If good user input run interest method in bank machine class
                     double annualInterestValue = Double.parseDouble(sc.nextLine());   
                     System.out.println("Please input the number of days to calculate interest on");
                     int numOfDays = Integer.parseInt(sc.nextLine());
@@ -103,6 +116,7 @@ public class BankMachineTester {
             }
 
             else if(userChoice.equalsIgnoreCase("Done")){
+                //End program
                 System.out.println("Thank you for banking with "+bankName);
                 done = true;
             }

@@ -28,8 +28,26 @@ public class BankMachineTester {
         
         System.out.println("What is the name of your bank?");
         String bankName = "";
-        //Get bank name from user
-        bankName = sc.nextLine();
+        Boolean bankNameLoop = false;
+
+        //Run while loop to catch bad user input
+        while(!bankNameLoop){
+            System.out.println("What is the name of your bank?");
+            bankName = sc.nextLine();
+            
+            //If the bank name is only numbers catch bad user input
+            if(isNumeric(bankName)){
+                System.out.println("\nPlease input a valid bank name");
+            }
+            //If the bank name is empty
+            else if (bankName.equals("")) {
+                System.out.println("\nPlease input a bank name");
+            }
+            //End the while loop
+            else{
+                bankNameLoop = true;
+            }
+        }
 
         double initialBalance = 0;
         Boolean run = false;

@@ -143,4 +143,21 @@ public class BankMachineTester {
             }
         }
     }
+    
+    
+       /**
+        * pre: String bank name
+        * post: Boolean true or false
+        * Method to check if the bank name string has only numbers in it
+        */
+        public static boolean isNumeric(String str){
+        try{
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException e){
+            return false;
+        }
+        return true;
+    }
+    
 }
